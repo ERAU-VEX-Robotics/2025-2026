@@ -1,4 +1,4 @@
-# ERAU VEX Robotics 2024-2025
+# ERAU VEX Robotics 2025-2026
 
 This repository contains the code for VEX U team ERAUG's robots for the
-2024-2025 competitive VEX U season.
+2025-2026 competitive VEX U season.
