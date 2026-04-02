@@ -75,13 +75,35 @@ void autonomous() {
 		drivetrain_wait_until_at_target(AmountOfDelay);
 		*/
 		
-		intake_in();
-		conveyor_up();
-		delay(5000);
+		//intake_in();
+		//conveyor_up();
+		//delay(5000);
 		//drivetrain_move_straight(-6);
 		//drivetrain_wait_until_at_target(AmountOfDelay);
-		intake_stop();
-		conveyor_stop();
+		//intake_stop();
+		//conveyor_stop();
+
+		delay(500);
+		drivetrain_turn_angle(45);
+		printf("Pre Wait Turn 1 \n");
+		drivetrain_wait_until_at_target(AmountOfTurnDelay);
+		printf("Post Wait Turn 1 \n");
+
+		imu_reset(14);
+		//drivetrain_move_straight(4);
+		//drivetrain_wait_until_at_target(AmountOfDelay);
+		delay(500);
+		drivetrain_turn_angle(45);
+		drivetrain_wait_until_at_target(AmountOfTurnDelay);
+		printf("Complete \n");
+		drivetrain_move_straight(0);
+		drivetrain_wait_until_at_target(4500);
+		printf("Heading: %f\n", imu_get_heading(14));
+		delay(500);
+		printf("Heading: %f\n", imu_get_heading(14));
+		delay(500);
+
+
 		/*
 		
 		drivetrain_turn_angle(-45);

@@ -28,7 +28,8 @@ static rgt_motor_group right_motors_rear = {-11,12};
 
 
 
-static uint8_t imu_port = 13;
+static uint8_t imu_port = 14;
+
 
 /**
  * Ringtail task variables and function prototypes for each side of the
@@ -114,6 +115,8 @@ void drivetrain_init(void) {
 	right_mutex_front = mutex_create();
 	left_mutex_rear = mutex_create();
 	right_mutex_rear = mutex_create();
+	imu_reset(imu_port);
+
 
 
 
@@ -204,6 +207,9 @@ void drivetrain_opcontrol(controller_analog_e_t left_X, controller_analog_e_t ri
 	//printf("Port 6: %d\n", motor_get_voltage(6));
 	//printf("Port 7: %d\n", motor_get_voltage(7));
 	//delay(2);
+
+	printf("Heading: %f\n", imu_get_heading(imu_port));
+	delay(500);
 	
 
 	//Ryan's V5 drive code
@@ -273,10 +279,8 @@ void drivetrain_turn_angle(double angle) {
 	kI = 1;//100
 	kD = 20;
 
-	imu_set_heading(imu_port,1);
+	printf("Heading: %f\n", imu_get_heading(imu_port));
 
-	//rgt_controller_reset(&left_pid_info);
-	//rgt_controller_reset(&right_pid_info);
 
 	rgt_controller_reset(&left_front_pid_info);
 	rgt_controller_reset(&right_front_pid_info);
@@ -301,6 +305,8 @@ void drivetrain_turn_angle(double angle) {
 
 	rgt_controller_set_target(&left_rear_pid_info, angle);
 	rgt_controller_set_target(&right_rear_pid_info, -angle);
+
+
 }
 
 void drivetrain_wait_until_at_target(uint32_t timeout) {
