@@ -300,11 +300,29 @@ void drivetrain_turn_angle(double angle) {
 	//rgt_controller_set_target(&left_pid_info, angle);
 	//rgt_controller_set_target(&right_pid_info, -angle);
 
-	rgt_controller_set_target(&left_front_pid_info, angle);
-	rgt_controller_set_target(&right_front_pid_info, -angle);
 
-	rgt_controller_set_target(&left_rear_pid_info, angle);
-	rgt_controller_set_target(&right_rear_pid_info, -angle);
+	//Try replacing this with target%180
+	double target_direction = fabs(fabs(angle) - get_robot_heading());
+
+	if (target_direction>= 180){
+		rgt_controller_set_target(&left_front_pid_info, -angle);
+		rgt_controller_set_target(&right_front_pid_info, angle);
+
+		rgt_controller_set_target(&left_rear_pid_info, -angle);
+		rgt_controller_set_target(&right_rear_pid_info, angle);
+	}
+	else{
+		rgt_controller_set_target(&left_front_pid_info, angle);
+		rgt_controller_set_target(&right_front_pid_info, -angle);
+
+		rgt_controller_set_target(&left_rear_pid_info, angle);
+		rgt_controller_set_target(&right_rear_pid_info, -angle);
+
+	}
+
+
+
+
 
 
 }
@@ -328,6 +346,17 @@ while ((!rgt_controller_at_target(&right_front_pid_info) ||
 	}
 
 }
+
+void drivetrain_stop(){
+	rgt_mg_move(left_motors_front, 0);
+	rgt_mg_move(left_motors_rear, 0);
+	rgt_mg_move(right_motors_front, 0);
+	rgt_mg_move(right_motors_rear, 0);
+	
+
+}
+
+
 
 //double left_mg_get_pos(void) {
 	//// Return average motor encoder position, accounting for 5:3 gear ratio

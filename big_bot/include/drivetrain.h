@@ -55,6 +55,14 @@ void drivetrain_opcontrol(controller_analog_e_t left_X, controller_analog_e_t le
 void drivetrain_move_straight(double inches);
 
 /**
+ * @brief Stops the drivetrain
+ * 
+ * @details Stops all drive motor groups. It specifies the names of the groups, so any change to the names of the motor groups must also include the modification of this function
+ */
+
+void drivetrain_stop();
+
+/**
  * @brief Turns the robot counterclockwise by a given angle in degrees
  *
  * @details This function takes in an angle, in degrees, to rotate
@@ -64,7 +72,9 @@ void drivetrain_move_straight(double inches);
  *
  * @param angle the angle for the drive to rotate counterclockwise, in degrees
  */
-void drivetrain_turn_angle(double angle);
+
+
+ void drivetrain_turn_angle(double angle);
 
 /**
  * @brief Delays until all drivetrain PID controllers have reached their targets
